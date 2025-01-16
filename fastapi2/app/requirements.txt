@@ -1,0 +1,8 @@
+fastapi
+pydantic
+typing
+uvicorn
+aerich
+tortoise-orm
+asyncmy
+aiomysql

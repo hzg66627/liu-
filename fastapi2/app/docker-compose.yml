@@ -1,0 +1,33 @@
+services:
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+      - "C:/Users/17732/PycharmProjects/fastapi2/app/studentgroup.sql:/docker-entrypoint-initdb.d/studentgroup_backup.sql"
+    environment:
+      - MYSQL_ROOT_PASSWORD=Liu94326
+      - MYSQL_DATABASE=studentgroup
+    restart: always
+
+  web:
+    build: .
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - TORTOISE_ORM__connections__default__host=db
+      - TORTOISE_ORM__connections__default__port=3306
+      - TORTOISE_ORM__connections__default__user=root
+      - TORTOISE_ORM__connections__default__password=Liu94326
+      - TORTOISE_ORM__connections__default__database=studentgroup
+    depends_on:
+      - db
+    networks:
+      default:
+
+volumes:
+  db-data:
