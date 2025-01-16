@@ -1,5 +1,0 @@
-fastapi
-tortoise-orm
-passlib
-PyJWT
-redis
